@@ -1,7 +1,7 @@
-# Airflow Platform in Docker
+# Apache Airflow Platform in Docker
 
-## Versions
+## Maintained by:
+- Dmytro Bohomiakov [@dbohomiakov](https://github.com/dbohomiakov)
+- Andrii Soldatenko [@andriisoldatenko](https://github.com/andriisoldatenko)
 
-## Volumes
-
-## TODO:
+This is the Git repo of the for [apache-airflow](https://hub.docker.com/dbohomiakov/airflow/).

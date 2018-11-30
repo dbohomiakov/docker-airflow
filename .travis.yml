@@ -2,6 +2,7 @@ language: bash
 services: docker
 
 script:
+  - cd 1.10.0/alpine3.8
   - docker build -t "airflow:1.10.0-alpine3.8" .
 
 deploy:

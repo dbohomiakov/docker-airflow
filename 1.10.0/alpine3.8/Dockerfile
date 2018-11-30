@@ -17,7 +17,7 @@ ENV AIRFLOW_GPL_UNIDECODE yes
 ENV AIRFLOW_VERSION 1.10.0
 
 COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir apache-airflow[crypto,devel,postgres,mysql,celery]==$AIRFLOW_VERSION
+#RUN pip install --no-cache-dir apache-airflow[crypto,devel,postgres,mysql,celery]==$AIRFLOW_VERSION
 
 ARG USER=airflow
 ARG AIRFLOW_HOME=/usr/local/${USER}

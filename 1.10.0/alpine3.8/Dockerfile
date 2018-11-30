@@ -1,6 +1,14 @@
 FROM python:3.5.6-alpine3.8
 
-MAINTAINER Dmytro Bohomiakov
+MAINTAINER dbohomiakov
+
+ENV LANG en_US.utf8
+ENV AIRFLOW_GPL_UNIDECODE yes
+ARG AIRFLOW_VERSION=1.10.0
+ARG AIRFLOW_HOME=/usr/local/airflow
+
+RUN addgroup -S airflow \
+    && adduser -D -S -h ${AIRFLOW_HOME} -G airflow airflow
 
 RUN apk add make automake gcc \
                           g++ \
@@ -13,20 +21,10 @@ RUN apk add make automake gcc \
                                                 postgresql-dev \
                                                 libffi-dev
 
-ENV AIRFLOW_GPL_UNIDECODE yes
-ENV AIRFLOW_VERSION 1.10.0
-
-COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir apache-airflow[crypto,devel,postgres,mysql,celery]==$AIRFLOW_VERSION
-
-ARG USER=airflow
-ARG AIRFLOW_HOME=/usr/local/${USER}
-
-RUN addgroup -S ${USER} \
-    && adduser -D -S -h ${AIRFLOW_HOME} -G ${USER} ${USER} \
-    && mkdir -p ${AIRFLOW_HOME}/dags ${AIRFLOW_HOME}/sql
+RUN pip install -U pip \
+    && pip install --no-cache-dir apache-airflow[crypto,devel,postgres,mysql,celery]==${AIRFLOW_VERSION}
 
 WORKDIR ${AIRFLOW_HOME}
-COPY config/airflow.cfg airflow.cfg
+COPY config/airflow.cfg .
 
 EXPOSE 8080 5555 8793

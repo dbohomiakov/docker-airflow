@@ -14,9 +14,10 @@ RUN apk add make automake gcc \
                                                 libffi-dev
 
 ENV AIRFLOW_GPL_UNIDECODE yes
+ENV AIRFLOW_VERSION 1.10.0
 
 COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir apache-airflow[crypto,devel,postgres,mysql,celery]==$AIRFLOW_VERSION
 
 ARG USER=airflow
 ARG AIRFLOW_HOME=/usr/local/${USER}
@@ -26,6 +27,6 @@ RUN addgroup -S ${USER} \
     && mkdir -p ${AIRFLOW_HOME}/dags ${AIRFLOW_HOME}/sql
 
 WORKDIR ${AIRFLOW_HOME}
-COPY config/airflow.cfg wait-for-it.sh ./
+COPY config/airflow.cfg airflow.cfg
 
 EXPOSE 8080 5555 8793

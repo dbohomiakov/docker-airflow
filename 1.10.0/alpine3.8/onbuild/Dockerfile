@@ -1,4 +1,4 @@
-FROM dbohomiakov/airflow:1.10.0-alpine3.8
+FROM dbohomiakov/docker-airflow:1.10.0-alpine3.8
 
 ONBUILD COPY requirements.txt .
 
